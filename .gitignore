@@ -1,0 +1,29 @@
+
+# Maven
+/target/
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Environment variables
+.env
+
+# Docker
+*.jar
+*.war
+docker-compose.override.yml
+
+# Test output
+/test-output/
