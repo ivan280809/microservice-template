@@ -1,81 +1,101 @@
 
-# Microservice Template ![CI](https://github.com/ivan280809/microservice-template/actions/workflows/ci.yml/badge.svg) ![GitHub license](https://img.shields.io/github/license/ivan280809/microservice-template)
+# Microservice Template
 
-A professional microservice template using Java 21+ + Spring Boot + Hexagonal Architecture.
+A professional microservice template using Java 21+ and Spring Boot 3.x, following Hexagonal Architecture principles.
+
+## Features
+
+✅ Clean Hexagonal Architecture  
+✅ REST API with versioning `/api/v1/...`  
+✅ DTO / Domain separation  
+✅ Centralized Error Handling  
+✅ Advanced Logging with CorrelationId  
+✅ Unit and Integration Tests (JUnit + Testcontainers ready)  
+✅ Docker and CI/CD ready  
+✅ Flyway migrations support  
+✅ Multiple environment profiles (`dev`, `prod`, `test`)  
+✅ Utility classes and common patterns
 
 ## Tech Stack
 
 - Java 21+
 - Spring Boot 3.x
 - Maven
-- Architecture: Hexagonal / Ports & Adapters
-- Logging: Logback + CorrelationId
-- Metrics: Spring Boot Actuator
-- Database: PostgreSQL (switchable), Flyway migrations
-- Testing: JUnit 5 + AssertJ + Testcontainers
-- API Versioning: `/api/v1/...`
-- Containerization: Docker
+- PostgreSQL + Flyway
+- JUnit 5 + AssertJ + Testcontainers
+- Logback with MDC
+- GitHub Actions for CI/CD
+- Docker
 
-## Features
+## Project Structure
 
-✅ Clean Hexagonal Architecture  
-✅ Centralized Error Handling  
-✅ Advanced Logging with CorrelationId  
-✅ Integration and Unit Tests Structure  
-✅ Docker and CI/CD Ready  
-✅ Environment Variables Support  
-✅ Example GitHub Actions CI Pipeline  
-✅ Example deploy configuration for production
+```
+src/
+├── main/java/com/example/microservice
+│   ├── MicroserviceApplication.java
+│   ├── application
+│   │   ├── dtos
+│   │   └── services
+│   ├── domain
+│   │   ├── model
+│   │   └── services
+│   ├── infrastructure
+│   │   ├── config
+│   │   ├── controller
+│   │   ├── exception
+│   │   ├── mapper
+│   │   └── repository
+│   └── shared
+│       ├── logging
+│       └── utils
+├── resources
+│   ├── application.yml
+│   ├── application-dev.yml
+│   ├── application-prod.yml
+│   ├── db/migration
+└── test/java/com/example/microservice
+    ├── integration
+    └── unit
+```
 
-## Getting Started
-
-### Run locally
+## Running Locally
 
 ```bash
+# Start database
 docker-compose up -d
+
+# Run app in dev profile
 ./run.sh
+# or manually:
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
-### Build Docker image
+## Running Tests
 
 ```bash
+# Run unit and integration tests
+./mvnw clean verify
+```
+
+> Integration tests use Testcontainers. Ensure Docker is running.
+
+## Building Production Image
+
+```bash
+# Build Docker image
 docker build -t my-microservice .
-```
 
-### Production Deployment
-
-```bash
+# Run in production profile
 docker-compose -f docker-compose.prod.yml up -d
 ```
 
-### Example .env.prod
+## Example `.env.prod`
 
 ```dotenv
 SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/mydb
 SPRING_DATASOURCE_USERNAME=user
 SPRING_DATASOURCE_PASSWORD=pass
 JWT_SECRET=replace-this-prod-secret
-```
-
-## Project Structure
-
-```
-microservice-template/
-├── .github/workflows/ci.yml
-├── .github/workflows/ci-deploy.yml
-├── .env.example
-├── .env.prod.example
-├── Dockerfile
-├── docker-compose.yml
-├── docker-compose.prod.yml
-├── README.md
-├── run.sh
-├── .gitignore
-├── pom.xml
-└── src
-    ├── main/java/com/example/microservice
-    ├── main/resources
-    └── test/java/com/example/microservice
 ```
 
 ## Author
